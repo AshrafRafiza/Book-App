@@ -1,0 +1,47 @@
+{% extends 'base.html' %} 
+
+{% block head %}
+<title>Book Warehouse</title>
+{% endblock %} 
+
+{% block body %}
+<h1>Book Warehouse</h1>
+
+<hr>
+<h2>Search Book Post:</h2>
+
+    <form action="/book-posts/result" method="GET">
+        <input type="search" placeholder="Search" name="search">
+        <button type="submit">Search</button>
+    </form>
+
+<hr>
+<h2>Create New Book Post:</h2>
+
+    <form action="/book-posts" method='POST'>
+        Book Title: <input type="text" name="title" id="title">
+        <br>
+        Author: <input type="text" name="author" id="author">
+        <br>
+        Synopsis: <input type="text" name="synopsis" id="synopsis">
+        <br>
+        <input type="submit" value="Post">
+    </form>
+
+<hr>
+<h1>All Book Posts</h1>
+{% for post in posts %}
+<h2>Title: {{ post.title }}</h2>
+
+{% if post.author %}
+    <h3>Author: {{ post.author }}</h3>
+{% else %}
+    <h3>Author: Author Unknown</h3>
+{% endif %}
+
+<p>Synopsis: {{ post.synopsis }}</p>
+<a href="/book-posts/delete/{{post.id}}">Delete</a>
+<a href="/book-posts/edit/{{post.id}}">Edit</a>
+<hr>
+{% endfor %}  
+{% endblock %}
